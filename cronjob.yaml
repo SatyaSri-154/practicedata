@@ -1,0 +1,23 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: my-cronjob
+  labels:
+    app: scheduled-task
+spec:
+  schedule: "37 17 27 11 *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: scheduled-task
+        spec:
+          containers:
+          - name: my-container
+            image: busybox
+            command: ["sh", "-c", "date; echo Hello, Kubernetes!"]
+          restartPolicy: OnFailure
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+

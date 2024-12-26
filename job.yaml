@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-job
+  labels:
+    app: batch-job
+spec:
+  template:
+    metadata:
+      labels:
+        app: batch-job
+    spec:
+      containers:
+      - name: my-container
+        image: busybox
+        command: ["sh", "-c", "echo Hello, Kubernetes! && sleep 20"]
+      restartPolicy: Never
+  backoffLimit: 4
+
